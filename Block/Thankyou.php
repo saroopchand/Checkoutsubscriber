@@ -38,4 +38,8 @@ class Thankyou extends \Magento\Sales\Block\Order\Totals
     public function getHelper(){
         return $this->helperData;
     }
+
+    public function getAjaxUrl(){
+        return $this->getUrl('checkoutsubscriber/index/index');
+    }
 }
