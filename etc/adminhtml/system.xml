@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="progos" translate="label" sortOrder="10000">
+            <label>Progos</label>
+        </tab>
+        <section id="progos" translate="label" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Checkout Subscriber</label>
+            <tab>progos</tab>
+            <resource>Progos_Checkoutsubscriber::subscriber</resource>
+            <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General</label>
+                <field id="view_type" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Subscribe</label>
+                    <source_model>Progos\Checkoutsubscriber\Model\Config\Showsubscribeoptions</source_model>
+                    <comment>No -> Disable. | Popup -> Subscriber Field Show in Popup. | Page: Subscriber Field Show in page.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
