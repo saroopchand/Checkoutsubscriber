@@ -15,6 +15,18 @@
                     <source_model>Progos\Checkoutsubscriber\Model\Config\Showsubscribeoptions</source_model>
                     <comment>No -> Disable. | Popup -> Subscriber Field Show in Popup. | Page: Subscriber Field Show in page.</comment>
                 </field>
+                <field id="popup_banner" translate="label" type="Magento\Config\Block\System\Config\Form\Field\File" sortOrder="45" showInDefault="1" showInWebsite="1" >
+                    <label>Popup Background Banner</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">checkoutsubscriber/logo</upload_dir>
+                    <base_url type="media" scope_info="1">checkoutsubscriber/logo</base_url>
+                </field>
+                <field id="welcome_message" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Welcome Message</label>
+                </field>
+                <field id="thankyou_message" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Welcome Message</label>
+                </field>
             </group>
         </section>
     </system>

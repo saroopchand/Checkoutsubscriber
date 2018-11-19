@@ -3,21 +3,37 @@ $order = $block->getOrder();
 $helper = $this->getHelper();
 $viewType = $helper->getGeneralConfig('view_type');
 ?>
-<div class="checkout-success">
-    <?php if($order->getIncrementId()):?>
-        <?php if ($block->getCustomerId()) :?>
-            <p><?php echo __("Your order number is: $order->getIncrementId()");?>
-            </p>
-        <?php  else :?>
-            <p><?php echo __('Your order # is: <span>%1</span>.',$order->getIncrementId()) ?></p>
-        <?php endif;?>
-        <p><?php echo __('We\'ll email you an order confirmation with details and tracking info.') ?></p>
-    <?php endif;?>
-</div>
 <?php
     if( !empty( $helper->getGeneralConfig('view_type') ) && $helper->getGeneralConfig('view_type') != "no" ):
         if( $helper->getGeneralConfig('view_type') == 'popup' ):?>
-          <script>alert("Popup Selected.");</script>
+            <div class="hover_bkgr_fricc">
+                <span class="helper"></span>
+                <div>
+                    <div class="popupCloseButton">X</div>
+                    <div class="bgimg-1" style="background-image: url('<?php echo $block->getPopupBanner();?>');">
+                        <div class="caption">
+                            <div class="border">
+                                <div class="message-show-page" style="display: none;color:red">
+                                    <?php echo $helper->getGeneralConfig('thankyou_message') ;?>
+                                </div>
+                                <br/>
+                                <span><?php echo $helper->getGeneralConfig('welcome_message') ;?></span>
+                                <input type="checkbox" value="true" name="wants_subscribe-page" id="wants_subscribe-page" />
+                                <input type="hidden" value="<?php echo $order->getCustomerEmail(); ?>" id="email-address" name="email-address" />
+                                <input type="button" name="ajax-call" id="ajax-subscriber" value="Subscribe">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <script>
+            require(['jquery'], function(){
+                jQuery('.hover_bkgr_fricc').show();
+                jQuery('.popupCloseButton').on('click', function(event){
+                    jQuery('.hover_bkgr_fricc').hide();
+                });
+            });
+        </script>
   <?php else: ?>
             <div>
                 <div class="message-show-page" style="display: none;color:red"> </div>
@@ -27,9 +43,7 @@ $viewType = $helper->getGeneralConfig('view_type');
                 <input type="button" name="ajax-call" id="ajax-subscriber" value="Subscribe">
             </div>
         <?php endif;
-    endif;
 ?>
-
 <script type="text/javascript">
     require(['jquery'], function(){
         jQuery('#ajax-subscriber').on('click', function(event){
@@ -44,8 +58,9 @@ $viewType = $helper->getGeneralConfig('view_type');
                         email: email
                     },
                     success: function (response) {
-                        console.log( response );
                         if( response.status == true ){
+                            jQuery('.message-show-page').show();
+                        }else{
                             jQuery('.message-show-page').html(response.msg);
                             jQuery('.message-show-page').show();
                         }
@@ -57,3 +72,4 @@ $viewType = $helper->getGeneralConfig('view_type');
         });
     });
 </script>
+<?php  endif; ?>
