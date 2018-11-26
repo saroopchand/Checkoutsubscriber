@@ -1,0 +1,75 @@
+<?php
+$order = $block->getOrder();
+$helper = $this->getHelper();
+$viewType = $helper->getGeneralConfig('view_type');
+?>
+<?php
+    if( !empty( $helper->getGeneralConfig('view_type') ) && $helper->getGeneralConfig('view_type') != "no" ):
+        if( $helper->getGeneralConfig('view_type') == 'popup' ):?>
+            <div class="hover_bkgr_fricc">
+                <span class="helper"></span>
+                <div>
+                    <div class="popupCloseButton">X</div>
+                    <div class="bgimg-1" style="background-image: url('<?php echo $block->getPopupBanner();?>');">
+                        <div class="caption">
+                            <div class="border">
+                                <div class="message-show-page" style="display: none;color:red">
+                                    <?php echo $helper->getGeneralConfig('thankyou_message') ;?>
+                                </div>
+                                <br/>
+                                <span><?php echo $helper->getGeneralConfig('welcome_message') ;?></span>
+                                <input type="checkbox" value="true" name="wants_subscribe-page" id="wants_subscribe-page" />
+                                <input type="hidden" value="<?php echo $order->getCustomerEmail(); ?>" id="email-address" name="email-address" />
+                                <input type="button" name="ajax-call" id="ajax-subscriber" value="Subscribe">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <script>
+            require(['jquery'], function(){
+                jQuery('.hover_bkgr_fricc').show();
+                jQuery('.popupCloseButton').on('click', function(event){
+                    jQuery('.hover_bkgr_fricc').hide();
+                });
+            });
+        </script>
+  <?php else: ?>
+            <div>
+                <div class="message-show-page" style="display: none;color:red"> </div>
+                <br/>
+                <input type="checkbox" value="true" name="wants_subscribe-page" id="wants_subscribe-page" />
+                <input type="hidden" value="<?php echo $order->getCustomerEmail(); ?>" id="email-address" name="email-address" />
+                <input type="button" name="ajax-call" id="ajax-subscriber" value="Subscribe">
+            </div>
+        <?php endif;
+?>
+<script type="text/javascript">
+    require(['jquery'], function(){
+        jQuery('#ajax-subscriber').on('click', function(event){
+            if( jQuery("#wants_subscribe-page").prop("checked") == true ){
+                var email = jQuery("#email-address").val();
+                jQuery.ajax({
+                    url: '<?php echo $block->getAjaxUrl(); ?>',
+                    type: "POST",
+                    dataType: 'json',
+                    context: this,
+                    data: {
+                        email: email
+                    },
+                    success: function (response) {
+                        if( response.status == true ){
+                            jQuery('.message-show-page').show();
+                        }else{
+                            jQuery('.message-show-page').html(response.msg);
+                            jQuery('.message-show-page').show();
+                        }
+                    }
+                });
+            }else{
+                alert("Please click checkbox first.");
+            }
+        });
+    });
+</script>
+<?php  endif; ?>

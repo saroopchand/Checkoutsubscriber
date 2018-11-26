@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<body>
+    <referenceContainer name="order.success.additional.info">
+        <block class="Progos\Checkoutsubscriber\Block\Thankyou" name="order.details.success" template="Progos_Checkoutsubscriber::order/success.phtml"/>
+    </referenceContainer>
+    <head>
+        <css src="Progos_Checkoutsubscriber::checkoutsubscriber.css"/>
+    </head>
+</body>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <progos>
+            <general>
+                <view_type>no</view_type>
+                <welcome_message>Dear Valued Costomer due you want to subscriber our news letter. Please check checkbox and click subscribe.</welcome_message>
+                <thankyou_message>Thanks you for your subscriptions.</thankyou_message>
+            </general>
+        </progos>
+    </default>
+</config>
